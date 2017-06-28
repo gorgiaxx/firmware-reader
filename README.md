@@ -3,14 +3,14 @@
 Reading the firmware in memory via UART interface with U-boot.
 ![Running](sample1.png)
 
-## Usage!
+## Usage
 ```
 git clone https://github.com/gorgiaxx/firmware-reader
 ```
 ### Online reading via UART
-Step 1: Connect the UART interface to your computer USB interface.
-Step 2: Running the script and input the shortcut code(for entering U-boot mode if exist).
-Step 3: Power on your device. Waiting for memory dump to finish.
+Step 1: Connect the UART interface to your computer USB interface.  
+Step 2: Running the script and input the shortcut code(for entering U-boot mode if exist).  
+Step 3: Power on your device. Waiting for memory dump to finish.  
 ```
 -s: base address
 -l: data length
