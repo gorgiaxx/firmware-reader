@@ -1,9 +1,9 @@
 # firmware-reader
 ## Introduction
 Reading the firmware in memory via UART interface with U-boot.
-！[Running](sample1.png)
+![Running](sample1.png)
 
-## Usage
+## Usage!
 ```
 git clone https://github.com/gorgiaxx/firmware-reader
 ```
@@ -24,7 +24,7 @@ python firmware_reader.py -s 82000000 -l 1000000 -b 57600 -d /dev/ttyUSB0 -o ./f
 ```
 
 ### Convert console logs file into a binary file
-！[Xshell logs](sample2.png)
+![Xshell logs](sample2.png)
 ```
 -i: input logs file path
 -o: output binary file path
