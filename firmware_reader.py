@@ -24,11 +24,13 @@ def write_bin_from_tty():
             ser.write(command)
 
             uboot_shortcut = input('u-boot shortcut:').encode("utf-8") + b'\x0d'
+            if uboot_shortcut == b'\x0d':
+                uboot_shortcut = b'\x03'
             while(1):
                 line = ser.readline()
-                if line == b'\rAutobooting in 1 seconds\n':
+                if line in uboot_hint:
                     ser.write(uboot_shortcut)
-                elif line == b'\rrlxboot# ':
+                elif line in prompt:
                     print(line.decode("utf-8")[:-1], command.decode("utf-8"))
                     ser.write(command)
                     print(ser.readline().decode("utf-8")[:-1])
@@ -38,7 +40,8 @@ def write_bin_from_tty():
             i = 0
             while(i < line_number):
                 i += 1
-                hex_string = ser.readline().decode("utf-8")[11:59].replace(' ', '')
+                line = ser.readline()
+                hex_string = line.decode("utf-8")[10:58].replace(' ', '')
                 sys.stdout.write('{0}  Current/Total  {1}/{2}\r'.format(hex_string, i, line_number))
                 sys.stdout.flush()
                 fo.write(bytes.fromhex(hex_string))
@@ -59,6 +62,8 @@ if __name__ == '__main__':
     print('\t  Firmware Reader')
     print('\t  @Author: Gorgias\thttps://gorgias.me')
     print('+' + '-' * 60 + '+')
+    prompt = [b'\rrlxboot# ', b'xmtech # ']
+    uboot_hint = [b'\rAutobooting in 1 seconds\n', b'Press Ctrl+C to stop autoboot\r\n']
     if len(sys.argv) == 5:
         try:
             options, args = getopt.getopt(sys.argv[1:], "i:o:")
